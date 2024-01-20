@@ -1,0 +1,49 @@
+// Define the analog input pin
+const int analogInPin = A0;
+
+// Variable to store the analog sensor value
+int sensorValue = 0;
+
+void setup() {
+  // Set the pinMode for LED pins (2, 3, and 5) as OUTPUT
+  pinMode(2, OUTPUT);
+  pinMode(3, OUTPUT);
+  pinMode(5, OUTPUT);
+
+  // Initialize serial communication at a baud rate of 9600
+  Serial.begin(9600);
+}
+
+void loop() {
+  // Read the analog sensor value from the specified pin
+  sensorValue = analogRead(analogInPin);
+
+  // Print the sensor value to the Serial Monitor
+  Serial.print("sensor = ");
+  Serial.println(sensorValue);
+
+  // Control LEDs based on the sensor value
+  if ((sensorValue >= 100) && (sensorValue <= 600)) {
+    // Turn on LED 2 and turn off LED 3 and LED 5
+    digitalWrite(2, HIGH);
+    digitalWrite(3, LOW);
+    digitalWrite(5, LOW);
+    Serial.println("LED 2 ON");
+    delay(100);
+  } else if ((sensorValue >= 601) && (sensorValue <= 625)) {
+    // Turn off LED 2 and LED 5, and turn on LED 3
+    digitalWrite(2, LOW);
+    digitalWrite(3, HIGH);
+    digitalWrite(5, LOW);
+    Serial.println("LED 3 ON");
+    delay(100);
+  } else {
+    // Turn off all LEDs (LED 2, LED 3, and LED 5)
+    digitalWrite(2, LOW);
+    digitalWrite(3, LOW);
+    digitalWrite(5, LOW);
+    Serial.println("All LEDs OFF");
+    delay(100);
+  }
+}
+
